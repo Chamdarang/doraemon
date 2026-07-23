@@ -1,0 +1,7 @@
+{
+  "status": "completed",
+  "steps": [
+    {"type": "model_output", "content": [{"type": "text", "text": "{\"name\":\"Pocket\",\"values\":[3]}"}]}
+  ],
+  "usage": {"total_tokens": 20, "output_tokens": 7}
+}

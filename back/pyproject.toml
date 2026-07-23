@@ -1,0 +1,29 @@
+[project]
+name = "doraemon-backend"
+version = "0.1.0"
+description = "Local AI service studio backend"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.34,<1",
+  "pydantic-settings>=2.7,<3",
+  "openai>=1.68,<2",
+  "python-multipart>=0.0.20,<1",
+  "httpx>=0.28,<1",
+]
+
+[project.optional-dependencies]
+dev = ["httpx>=0.28,<1", "pytest>=8.3,<9", "pytest-asyncio>=0.25,<1", "ruff>=0.9,<1", "mypy>=1.15,<2"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+show_error_codes = true
+warn_unused_configs = true

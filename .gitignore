@@ -1,0 +1,62 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Python
+**/.venv/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+coverage/
+
+# Node and frontend build output
+**/node_modules/
+*.tsbuildinfo
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+front/.next/
+front/dist/
+front/.vinext/
+front/.wrangler/
+front/out/
+front/.pnp
+front/.pnp.*
+front/.yarn/*
+!front/.yarn/patches
+!front/.yarn/plugins
+!front/.yarn/releases
+!front/.yarn/versions
+front/.vercel/
+front/next-env.d.ts
+front/outputs/
+front/work/
+
+# IDE, OS, and local AI-tool metadata
+**/.idea/
+**/.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+**/.agents/
+**/.codex/
+**/.openai/
+
+# Doraemon runtime data
+.pocket-runtime/
+pocket/*
+!pocket/.gitkeep
+!pocket/.trash/
+pocket/.trash/*
+!pocket/.trash/.gitkeep

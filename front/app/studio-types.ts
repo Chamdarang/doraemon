@@ -1,0 +1,85 @@
+export type Project = {
+  id: string;
+  name: string;
+  description: string;
+  status: "draft" | "generating" | "ready" | "error";
+  updated_at: string;
+  last_error: string | null;
+  llm_policy: { mode: "economy" | "balanced" | "quality"; planning_source_limit: number; generation_source_limit: number };
+  archived_at: string | null;
+};
+
+export type Message = { id: string; role: "user" | "assistant"; content: string; created_at: string };
+export type Decision = { category: string; choice: string; rationale: string; confirmed?: boolean };
+export type Plan = {
+  draft: {
+    reply: string;
+    stage: "discovery" | "design" | "technical" | "review";
+    decisions: Decision[];
+    open_questions: string[];
+    implementation_plan: {
+      architecture: string;
+      technology_choices: Decision[];
+      components: string[];
+      directories: { path: string; purpose: string }[];
+      data_and_state: string;
+      api_and_integrations: string;
+      runtime_and_configuration: string;
+      testing_strategy: string;
+    } | null;
+    ready_to_generate: boolean;
+    specification: string | null;
+    service_specification: string | null;
+    technical_specification: string | null;
+  };
+  approved: boolean;
+  updated_at: string;
+};
+export type GenerationCoverage = { screens: string[]; apis: string[]; core_flows: string[]; limitations: string[]; key_files: { path: string; purpose: string }[] };
+export type Job = { id: string; status: string; message: string; error: string | null; updated_at: string; kind: "generation" | "improvement" | "repair"; retry_available: boolean; cached_result_available: boolean; interrupted: boolean; diagnostics?: string[]; generation_report?: GenerationCoverage | null };
+export type ProcessState = {
+  target: "backend" | "frontend";
+  running: boolean;
+  pid: number | null;
+  port: number;
+  phase: "stopped" | "starting" | "ready" | "error";
+  message: string | null;
+  command: string[];
+};
+export type Exchange = { assistant_message: Message; plan: Plan };
+export type ImprovementPlan = { draft: { reply: string; goal: string; analysis: string; changes: { path: string; action: "add" | "modify" | "delete"; reason: string }[]; acceptance_criteria: string[]; open_questions: string[]; ready_to_apply: boolean }; approved: boolean; applied_at: string | null; updated_at: string };
+export type ImprovementExchange = { assistant_message: Message; plan: ImprovementPlan };
+export type UsageTotals = { requests: number; input_tokens: number; output_tokens: number; total_tokens: number; cached_input_tokens: number };
+export type UsageSummary = UsageTotals & { by_kind?: Record<string, UsageTotals> };
+export type UsageRecord = { id: string; kind: "planning" | "improvement_planning" | "generation" | "improvement_generation" | "repair"; model: string; provider: string; input_tokens: number; output_tokens: number; total_tokens: number; cached_input_tokens: number; created_at: string };
+export type LlmActivity = { busy: boolean; project_id: string | null; operation: string | null; estimated_input_tokens: number; started_at: string | null };
+export type VersionRecord = { id: string; label: string; source_job_id: string | null; created_at: string };
+export type VersionDiffFile = { path: string; status: "added" | "modified" | "deleted"; additions: number; deletions: number; diff: string; binary: boolean; truncated: boolean };
+export type VersionDiff = { version_id: string; files: VersionDiffFile[]; added: number; modified: number; deleted: number; unchanged: number; runtime_changed: boolean; truncated_files: number };
+export type EnvironmentSpec = { key: string; description: string; required: boolean; secret: boolean; client_exposed: boolean; format: string; restart_required: boolean };
+export type ProjectOverview = { project_id: string; backend_running: boolean; frontend_running: boolean; missing_environment: string[]; health: { name: string; target: "backend" | "frontend"; url: string; healthy: boolean; status_code: number | null; error: string | null }[] };
+export type MaintenanceSummary = { disk_bytes: number; logs_bytes: number; cache_bytes: number; versions_bytes: number; version_count: number };
+export type TechnologyStack = { backend: string[]; frontend: string[]; infrastructure: string[] };
+export type InfrastructureServiceState = { name: string; source: string; kind: "docker" | "external"; running: boolean; status: string; health: string; exit_code: number | null; ports: string[]; controllable: boolean };
+export type InfrastructurePortSetting = { key: string; value: number; default: number };
+export type InfrastructureOverview = { docker_available: boolean; services: InfrastructureServiceState[]; port_settings: InfrastructurePortSetting[]; message: string; errors: string[] };
+export type InfrastructureLogs = { source: string; service: string; logs: string };
+export type Notification = { id: string; level: "info" | "success" | "warning" | "error"; title: string; message: string; read: boolean; created_at: string };
+export type LogChunk = { logs: string; cursor: number; log_id: string; reset: boolean };
+export type RuntimeSnapshot = { processes: ProcessState[]; jobs: Job[]; overview: ProjectOverview; notifications: Notification[]; logs: Record<string, LogChunk> };
+export type TrashItem = { id: string; project_id: string; name: string; description: string; deleted_at: string };
+export type SearchResult = { kind: "project" | "job"; project_id: string; project_name: string; title: string; subtitle: string; status: string; updated_at: string };
+export type ProjectWorkspace = {
+  messages: Message[];
+  jobs: Job[];
+  processes: ProcessState[];
+  improvement_messages: Message[];
+  plan: Plan | null;
+  improvement_plan: ImprovementPlan | null;
+  usage: UsageSummary;
+  versions: VersionRecord[];
+  repair_messages: Message[];
+  overview: ProjectOverview;
+  notifications: Notification[];
+};
+export type StudioTab = "plan" | "improve" | "repair" | "runtime" | "environment" | "tools";

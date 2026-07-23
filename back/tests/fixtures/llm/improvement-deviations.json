@@ -1,0 +1,9 @@
+{
+  "summary": "known provider deviations",
+  "files": {
+    "back/app/main.py": "print('ok')",
+    "front/src/App.tsx": {"content": "export default function App() { return null }"}
+  },
+  "deleted_files": [],
+  "runtime": "not run"
+}

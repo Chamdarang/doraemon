@@ -1,0 +1,8 @@
+{
+  "content": [
+    {"type": "thinking", "thinking": "omitted"},
+    {"type": "text", "text": "{\"name\":\"Pocket\",\"values\":[1,2]}"}
+  ],
+  "stop_reason": "end_turn",
+  "usage": {"input_tokens": 10, "output_tokens": 8}
+}

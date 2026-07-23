@@ -1,0 +1,6 @@
+{
+  "choices": [
+    {"message": {"content": [{"type": "output_text", "text": "{\"name\":\"Pocket\",\"values\":[4]}"}]}}
+  ],
+  "usage": {"prompt_tokens": 9, "completion_tokens": 5}
+}

@@ -1,0 +1,37 @@
+name: doraemon
+
+services:
+  backend:
+    build:
+      context: ./back
+    env_file:
+      - .env
+    environment:
+      POCKET_ROOT: /workspace/pocket
+      POCKET_CORS_ORIGINS: '["http://localhost:3000","http://127.0.0.1:3000"]'
+    volumes:
+      - ./pocket:/workspace/pocket
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD",
+        "python",
+        "-c",
+        "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 30s
+  frontend:
+    build:
+      context: ./front
+      args:
+        NEXT_PUBLIC_POCKET_API_URL: http://localhost:8000/api
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
