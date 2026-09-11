@@ -17,12 +17,12 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
   "dependencies": {
-    "next": "16.2.11",
+    "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "1.46.0",
+    "@cloudflare/vite-plugin": "1.54.7",
     "@tailwindcss/postcss": "4.2.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
@@ -40,7 +40,7 @@
     "vinext": "0.0.50",
     "vite": "8.1.5",
     "vitest": "^4.1.10",
-    "wrangler": "4.113.0"
+    "wrangler": "4.131.0"
   },
   "type": "module"
 }
