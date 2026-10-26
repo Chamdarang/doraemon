@@ -39,7 +39,7 @@
     "typescript": "5.9.3",
     "vinext": "0.0.50",
     "vite": "8.1.5",
-    "vitest": "^4.1.10",
+    "vitest": "^4.1.12",
     "wrangler": "4.113.0"
   },
   "type": "module"
